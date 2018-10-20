@@ -80,16 +80,17 @@ describe("GET /todos/:id", () => {
         request(app)
             .get(`/todos/${todos[0]._id.toHexString()}`)
             .expect(200)
-            .expect(res => {
+            .expect((res) => {
                 expect(res.body.todo.text).toBe(todos[0].text);
             })
             .end(done);
     });
 
     it("should return 404 if todo not found", done => {
-        let hexId = new ObjectID().toHexString();
+        let id = new ObjectID();
+
         request(app)
-            .get(`/todos/${hexId}`)
+            .get(`/todos/${id.toHexString()}`)
             .expect(404)
             .end(done);
     });
@@ -99,5 +100,6 @@ describe("GET /todos/:id", () => {
             .get("/todos/123")
             .expect(404)
             .end(done);
-    });
+    })
 });
+
